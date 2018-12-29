@@ -23,15 +23,26 @@ def product_details_view(request):
 
     return render(request, "products/product_details.html", context)
 
+# def product_create_view(request):
+#     form = ProductCreateForm(request.POST or None)
+
+#     if form.is_valid():
+#         form.save()
+#         form = ProductCreateForm()
+
+#     context = {
+#         'form': form
+#     }
+
+#     return render(request, "products/product_create.html", context)
+
 def product_create_view(request):
-    form = ProductCreateForm(request.POST or None)
-
-    if form.is_valid():
-        form.save()
-        form = ProductCreateForm()
-
+    print(request.GET)
+    print(request.POST)
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        print(title)
     context = {
-        'form': form
     }
 
     return render(request, "products/product_create.html", context)
