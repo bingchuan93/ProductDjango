@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ title }}</h1>
+<p>Phone number: {{ phone_number }}</p>
+<ul class="collection with-header">
+    <li class="collection-header grey lighten-2">My Hobbies</li>
+{% for hobby in hobbies %}
+    <li class="collection-item">{{ forloop.counter}}. {{ hobby }}</li>
+{% endfor %}
+</ul>
+{% endblock %}
