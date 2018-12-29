@@ -13,12 +13,8 @@ def contact_view(request, *args, **kwargs):
 
 def about_view(request, *args, **kwargs):
     context = {
-        'title': 'About Page',
+        'title': '<h2>About Page</h2>',
         'phone_number': 91000480,
         'hobbies': ['Cards', 'Skates', 'Guitar']
     }
     return render(request, "about.html", context)
-
-def products_view(request, *args, **kwargs):
-    context = {}
-    return render(request, "products.html", context)

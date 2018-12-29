@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>{{ title }}</h1>
+<h1>{{ title|safe }}</h1>
 <p>Phone number: {{ phone_number }}</p>
 <ul class="collection with-header">
     <li class="collection-header grey lighten-2">My Hobbies</li>

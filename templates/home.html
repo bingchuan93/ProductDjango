@@ -2,7 +2,7 @@
 
 {% block content %}
 <h1>Hello there!</h1>
-{{ request.user }}
+{{ request.user|capfirst }}
 <p>This is a template</p>
 <p>this is a test</p>
 {% endblock%}
