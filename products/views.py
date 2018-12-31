@@ -4,7 +4,15 @@ from .models import Product
 from .forms import ProductCreateForm, RawProductForm
 # Create your views here.
 def products_view(request, *args, **kwargs):
-    context = {}
+    form = ProductCreateForm(request.POST or None)
+
+    if form.is_valid():
+        form.save()
+        form = ProductCreateForm()
+
+    context = {
+        'form': form
+    }
     return render(request, "products.html", context)
 
 def product_details_view(request):
@@ -48,7 +56,7 @@ def product_lookup_view(request, id):
     context = {
         'object' : obj,
         'prev_product_id' : prev_obj.id if prev_obj else 1,
-        'next_product_id' : next_obj.id if next_obj else 1
+        'next_product_id' : next_obj.id if next_obj else obj.id
     }
     return render(request, "products/product_lookup.html", context)
 
