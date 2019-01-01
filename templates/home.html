@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
-<h1>Hello {{ request.user|capfirst }}!</h1>
-
+<img class="full-width" src="{% static 'img/home_page_parallax.jpg' %}">
+<h1 class="grey-text text-darken-3">TDjango Supermarketing</h1>
+<p>Hello {{ request.user|capfirst }}!</p>
 <a class="waves-effect waves-light btn" href="admin/">Go to Admin<i class="material-icons right">person</i></a>
-
 {% endblock%}

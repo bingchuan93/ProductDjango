@@ -11,8 +11,11 @@ def products_view(request, *args, **kwargs):
         form.save()
         form = ValidatedProductForm()
 
+    queryset = Product.objects.all()
+
     context = {
-        'form': form
+        'form': form,
+        "object_list": queryset
     }
     return render(request, "products.html", context)
 

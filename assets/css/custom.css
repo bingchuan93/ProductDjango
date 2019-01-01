@@ -1,3 +1,6 @@
+*{
+    font-family: 'Open Sans', sans-serif;
+}
 @media screen and (max-width: 992px){
     #nav-mobile {
         display: none;
@@ -10,4 +13,17 @@
 
 .product-view .card {
     margin: 20px 0px;
+}
+
+.full-width {
+    object-fit: cover;
+    width: 100vw;
+    height: 55vh;
+    margin-left: calc(50% - 50vw);
+}
+
+@media screen and (max-width: 992px){
+    .full-width {
+        height: 30vh
+    }
 }

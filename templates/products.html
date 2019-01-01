@@ -7,6 +7,11 @@
 <a class="waves-effect waves-light btn modal-trigger" href="#add-modal">Create</a>
 <a class="waves-effect waves-light btn" href="/products/details/1">View</a>
 
+<ul class="collection">
+{% for obj in object_list %}
+    <li class="collection-item">{{ obj.id }}. {{ obj.title}}</li>
+{% endfor %}
+</ul>
 
 <div id="add-modal" class="modal">
     <form method="POST"> {% csrf_token %}
