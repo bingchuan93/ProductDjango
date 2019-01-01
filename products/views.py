@@ -2,14 +2,14 @@ from django.http import Http404
 from django.shortcuts import render
 
 from .models import Product
-from .forms import ProductCreateForm, RawProductForm
+from .forms import ProductCreateForm, ValidatedProductForm
 # Create your views here.
 def products_view(request, *args, **kwargs):
-    form = ProductCreateForm(request.POST or None)
+    form = ValidatedProductForm(request.POST or None)
 
     if form.is_valid():
         form.save()
-        form = ProductCreateForm()
+        form = ValidatedProductForm()
 
     context = {
         'form': form
