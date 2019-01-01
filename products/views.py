@@ -2,7 +2,7 @@ from django.http import Http404
 from django.shortcuts import render
 
 from .models import Product
-from .forms import ProductCreateForm, ValidatedProductForm
+from .forms import ProductCreateForm, RawProductForm, ValidatedProductForm
 # Create your views here.
 def products_view(request, *args, **kwargs):
     form = ValidatedProductForm(request.POST or None)
@@ -90,3 +90,18 @@ def product_lookup_view(request, id):
 #     }
 
 #     return render(request, "products/product_create.html", context)
+
+def render_initial_data(request):
+    initial_data = {
+        'title': "This is an initial title"
+    }
+    initial_obj = Product.objects.get(id=1)
+    form = ProductCreateForm(request.POST or None, initial=initial_data, instance=initial_obj)
+    
+    if form.is_valid():
+        form.save()
+    
+    context = {
+        'form': form
+    }
+    return render(request, "products.html", context)

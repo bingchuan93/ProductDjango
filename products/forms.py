@@ -2,7 +2,7 @@ from django import forms
 
 from .models import Product
 
-class ProductCreateForm(forms.ModelForm):
+class ProductCreateForm(forms.ModelForm):   # only .ModelForm can use instance
     class Meta:
         model = Product
         fields = [
