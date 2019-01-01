@@ -1,5 +1,5 @@
 from django.http import Http404
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 
 from .models import Product
 from .forms import ProductCreateForm, RawProductForm, ValidatedProductForm
@@ -55,9 +55,14 @@ def product_lookup_view(request, id):
     try:
         obj = Product.objects.get(id=id)
         next_obj= Product.objects.filter(id__gt=obj.id).order_by('id').first()
-        prev_obj= Product.objects.filter(id__lt=obj.id).order_by('id').first()
+        prev_obj= Product.objects.filter(id__lt=obj.id).order_by('-id').first()
     except Product.DoesNotExist:
         raise Http404
+
+    if request.method == "POST":
+        print(id)
+        obj.delete()
+        return redirect('/products')
 
     context = {
         'object' : obj,
