@@ -1,8 +1,6 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Hello there!</h1>
-{{ request.user|capfirst }}
+<h1>Hello {{ request.user|capfirst }}!</h1>
 <p>This is a template</p>
-<p>this is a test</p>
 {% endblock%}

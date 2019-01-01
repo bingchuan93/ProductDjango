@@ -5,7 +5,15 @@ from .models import Product
 from .forms import ProductCreateForm, RawProductForm
 # Create your views here.
 def products_view(request, *args, **kwargs):
-    context = {}
+    form = ProductCreateForm(request.POST or None)
+
+    if form.is_valid():
+        form.save()
+        form = ProductCreateForm()
+
+    context = {
+        'form': form
+    }
     return render(request, "products.html", context)
 
 def product_details_view(request):
