@@ -1,5 +1,5 @@
 from django.http import Http404
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 from .models import Product
 from .forms import ProductCreateForm, RawProductForm, ValidatedProductForm
@@ -51,6 +51,7 @@ def product_create_view(request): #Using built in django 'automated' forms
     return render(request, "products/product_create.html", context)
 
 def product_lookup_view(request, id):
+    # obj = get_object_or_404(Product, id=id)
     try:
         obj = Product.objects.get(id=id)
         next_obj= Product.objects.filter(id__gt=obj.id).order_by('id').first()
