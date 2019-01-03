@@ -5,6 +5,8 @@ from .models import Product
 from .forms import ProductCreateForm, RawProductForm, ValidatedProductForm
 # Create your views here.
 def products_view(request, *args, **kwargs):
+    obj = Product.objects.all().order_by('id').first()
+    
     form = ValidatedProductForm(request.POST or None)
 
     if form.is_valid():
@@ -15,25 +17,10 @@ def products_view(request, *args, **kwargs):
 
     context = {
         'form': form,
-        "object_list": queryset
+        "object_list": queryset,
+        'id': obj.id
     }
     return render(request, "products.html", context)
-
-def product_details_view(request):
-    obj = Product.objects.get(id=1)
-    # context = {
-    #     'title': obj.title,
-    #     'description': obj.description,
-    #     'price': obj.price,
-    #     'summary': obj.summary,
-    #     'featured': obj.featured
-    # }
-
-    context = {
-        'product': obj
-    }
-
-    return render(request, "products/product_details.html", context)
 
 def product_create_view(request): #Using built in django 'automated' forms
     initial_data = {

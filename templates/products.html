@@ -5,11 +5,11 @@
 <p>This is a template</p>
 <!-- <a class="waves-effect waves-light btn" href="/create">Create</a> -->
 <a class="waves-effect waves-light btn modal-trigger" href="#add-modal">Create</a>
-<a class="waves-effect waves-light btn" href="/products/details/1">View</a>
+<a class="waves-effect waves-light btn" href="{% url 'products:product_lookup' id %}">View</a>
 
 <ul class="collection">
 {% for obj in object_list %}
-    <li class="collection-item">{{ obj.id }}. {{ obj.title}}</li>
+    <li class="collection-item"><a href="{{ obj.get_absolute_url }}">{{ obj.id }}. {{ obj.title}}</a></li>
 {% endfor %}
 </ul>
 

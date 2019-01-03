@@ -10,8 +10,8 @@
                 <p>${{ object.price }}</p>
             </div>
             <div class="card-action">
-                <a class="waves-effect waves-light red darken-4 btn" href="{% url 'product_lookup' prev_product_id %}"><i class="material-icons">keyboard_arrow_left</i></a>
-                <a class="waves-effect waves-light red darken-4 btn" href="{% url 'product_lookup' next_product_id %}"><i class="material-icons">keyboard_arrow_right</i></a>
+                <a class="waves-effect waves-light red darken-4 btn" href="{% url 'products:product_lookup' prev_product_id %}"><i class="material-icons">keyboard_arrow_left</i></a>
+                <a class="waves-effect waves-light red darken-4 btn" href="{% url 'products:product_lookup' next_product_id %}"><i class="material-icons">keyboard_arrow_right</i></a>
                 <a class="waves-effect waves-light cyan right modal-trigger btn" href="#delete-modal"><i class="material-icons">delete</i></a>
             </div>
         </div>
