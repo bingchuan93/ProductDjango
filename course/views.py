@@ -10,6 +10,45 @@ from .forms import CourseModelForm
 #         print(request.method)
 #         return render(request, self.template_name, {})
 
+class CourseUpdateView(View):
+    template_name = "course/course_update.html"
+    def get_object(self):
+        id = self.kwargs.get('id')
+        obj = None
+        if id is not None:
+            obj = get_object_or_404(Course, id=id)
+            
+        return obj
+
+    def get(self, request, id=None, *kargs, **kwargs):
+        print(request.method)
+        context = {}
+
+        obj = self.get_object()
+        if obj is not None:
+            form = CourseModelForm(instance=obj)
+            context['object'] = obj
+            context['form'] = form
+            
+        return render(request, self.template_name, context)
+    
+    def post(self, request, *kargs, **kwargs):      #Do something with the form data on POST submit
+        print(request)
+        context = {}
+
+        obj = self.get_object()
+        if obj is not None:
+            form = CourseModelForm(request.POST, instance=obj)
+            if form.is_valid():
+                form.save()
+            context['object'] = obj
+            context['form'] = form
+            
+        return render(request, self.template_name, context)
+
+    def get_success_url(self):
+        return reverse('course:course_list')
+    
 
 class CourseCreateView(View):
     template_name = "course/course_create.html"
