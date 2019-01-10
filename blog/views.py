@@ -39,6 +39,16 @@ class ArticleCreateView(CreateView):
     #def get_success_url(self):
     #    return '/blog'
 
+class ArticleDeleteView(DeleteView):
+    template_name = 'blog/article_delete.html'
+    
+    def get_object(self):
+        id_ = self.kwargs.get('id')
+        return get_object_or_404(Blog, id=id_)
+
+    def get_success_url(self):
+        return reverse('blog:article_list')
+        
 class ArticleUpdateView(UpdateView):
     template_name = 'blog/article_create.html'
     form_class = ArticleForm
