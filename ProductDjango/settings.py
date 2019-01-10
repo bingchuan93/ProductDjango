@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'pages',
     'products',
     'blog',
+    'course',
 
     'django.contrib.admin',
     'django.contrib.auth',
