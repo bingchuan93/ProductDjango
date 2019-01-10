@@ -10,15 +10,19 @@ from .forms import CourseModelForm
 #         print(request.method)
 #         return render(request, self.template_name, {})
 
-class CourseDeleteView(View):
-    template_name = "course/course_delete.html"
+class CourseObjectMixin(object):
+    model = Course
+
     def get_object(self):
         id = self.kwargs.get('id')
         obj = None
         if id is not None:
-            obj = get_object_or_404(Course, id=id)
+            obj = get_object_or_404(self.model, id=id)
             
         return obj
+
+class CourseDeleteView(CourseObjectMixin, View):
+    template_name = "course/course_delete.html"
 
     def get(self, request, id=None, *kargs, **kwargs):
         print(request.method)
@@ -42,25 +46,17 @@ class CourseDeleteView(View):
             
         return render(request, self.template_name, context)
 
-class CourseUpdateView(View):
+class CourseUpdateView(CourseObjectMixin, View):
     template_name = "course/course_update.html"
-    def get_object(self):
-        id = self.kwargs.get('id')
-        obj = None
-        if id is not None:
-            obj = get_object_or_404(Course, id=id)
-            
-        return obj
 
     def get(self, request, id=None, *kargs, **kwargs):
         print(request.method)
         context = {}
 
         obj = self.get_object()
-        if obj is not None:
-            form = CourseModelForm(instance=obj)
-            context['object'] = obj
-            context['form'] = form
+        form = CourseModelForm(instance=obj)
+        context['object'] = obj
+        context['form'] = form
             
         return render(request, self.template_name, context)
     
@@ -121,14 +117,13 @@ class CourseListView(View):
 # class MyListView(CourseListView):
 #     queryset = Course.objects.filter(id=1)
 
-class CourseView(View):
+class CourseView(CourseObjectMixin, View):
     template_name = "course/course_detail.html"
     def get(self, request, id=None, *kargs, **kwargs):
         print(request.method)
-        context = {}
-        if id is not None:
-            obj = get_object_or_404(Course, id=id)
-            context['object'] = obj
+        context = {
+            'object': self.get_object()
+        }
         return render(request, self.template_name, context)
 
 # Create your views here.
